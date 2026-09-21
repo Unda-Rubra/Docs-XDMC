@@ -1,49 +1,122 @@
-# Starlight Starter Kit: Basics
+# XDUCraft 文档仓库
 
-[![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
+这是 XDUCraft 文档站的内容仓库。项目使用 [Astro](https://astro.build/) 与 [Starlight](https://starlight.astro.build/) 构建，文档页面主要使用 Markdown（`.md`）和 MDX（`.mdx`）编写。
 
+仓库中的内容面向 XDUCraft 玩家、服务器维护者以及其他需要了解相关技术的人，包含入服指南、整合包使用说明、服务器搭建教程、插件/模组介绍和其他技术文档。文档站本身只是内容的展示载体，最重要的工作是持续补充准确、清晰、可复现的说明。
+
+## 如何参与贡献
+
+你可以通过以下方式帮助改进文档：
+
+- 撰写一个全新的指南，或补充现有指南缺失的章节；
+- 修正错误的操作步骤、命令、链接、图片或配置信息；
+- 校对错别字、标点、表述和标题层级；
+- 根据游戏、整合包、插件或服务器配置的更新，维护已经过时的内容；
+- 报告文档中无法复现、看不懂或与实际情况不符的部分。
+
+如果不确定应该如何修改，可以先提交 Issue，或在 Pull Request 中说明问题并请求维护者协助。对于涉及服务器规则、地址、账号、安全或个人信息的内容，请先向维护者确认，再写入公开文档。
+
+## 内容存放位置
+
+```text
+src/
+├── assets/                 # 文档使用的图片等资源
+├── content/
+│   └── docs/               # 所有文档页面
+│       ├── general/        # 总览内容
+│       ├── join-server/    # XDUCraft 入门图文教程
+│       ├── server-setup/   # Java 版开服教程
+│       ├── index.mdx       # 文档站首页
+│       └── *.md / *.mdx    # 独立文档
+└── content.config.ts       # Starlight 内容配置
 ```
-npm create astro@latest -- --template starlight
+
+通常只需要修改 `src/content/docs/` 和对应的 `src/assets/`。站点布局、侧边栏和主题配置位于 `astro.config.mjs`，涉及这些内容时请在 Pull Request 中说明原因，或交由维护者处理。
+
+## 新建文档
+
+1. 先确定文档的读者、目标和范围，避免把多个互不相关的主题混在一篇文章里。
+2. 在 `src/content/docs/` 下选择合适的位置创建 `.md` 或 `.mdx` 文件。
+   - 纯文字、代码和图片说明使用 `.md`；
+   - 需要 Starlight 组件或少量 JSX/HTML 时使用 `.mdx`。
+3. 在文件开头添加 frontmatter：
+
+```yaml
+---
+title: 文档标题
+description: 用一句话说明这篇文档的内容
+---
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+4. 在正文中按“准备工作 → 操作步骤 → 预期结果 → 常见问题”的顺序组织内容；根据实际情况取舍，不必强行套用全部章节。
+5. 如果新文档属于已有的自动生成目录（例如 `join-server/` 或 `server-setup/`），放入对应目录即可。独立文档或新的文档目录可能还需要在 `astro.config.mjs` 的 `sidebar` 中加入入口，请在提交时提醒维护者。
 
-## 🚀 Project Structure
+文件名会影响页面地址。已经发布的文档不要随意改名或移动；确实需要调整时，请同时检查站内链接、图片路径和侧边栏配置。
 
-Inside of your Astro + Starlight project, you'll see the following folders and files:
+## 修改或校对现有文档
 
+- 尽量只修改有问题的部分，保留正确的 frontmatter、页面地址和已有图片；
+- 涉及版本、下载地址、服务器地址、启动器界面等易变化信息时，注明适用版本；
+- 命令、文件名、配置项、按钮名称和玩家需要输入的内容使用行内代码标记，例如 `npm run build`；
+- 步骤应当能够被读者逐步复现。若某一步存在平台、版本或启动器差异，请明确写出适用条件；
+- 截图应当清晰、必要，且最好不要包含密码、令牌、真实邮箱、IP 白名单等不应公开的信息；
+- 图片的替代文本请使用有意义的语言叙述，不要只写“图片”或“如图”。
+
+## 图片与资源
+
+文档图片放在 `src/assets/` 下，建议按文档主题建立子目录，并使用清晰的文件名。例如：
+
+```text
+src/assets/my-guide/install-step-01.png
 ```
-.
-├── public/
-├── src/
-│   ├── assets/
-│   ├── content/
-│   │   └── docs/
-│   └── content.config.ts
-├── astro.config.mjs
-├── package.json
-└── tsconfig.json
+
+在 Markdown 中使用相对于当前文档文件的路径引用图片：
+
+```markdown
+![安装界面示意图](../../assets/my-guide/install-step-01.png)
 ```
 
-Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
+文档位于更深层目录时，按实际层级调整 `../` 的数量；可以参考同目录下已有页面的写法。提交前请确认大小写、文件名和相对路径完全一致。
 
-Images can be added to `src/assets/` and embedded in Markdown with a relative link.
+## 本地预览与站点开发参考
 
-Static assets, like favicons, can be placed in the `public/` directory.
+对于只使用标准 Markdown 语法的 `.md` 文档，通常不需要安装 Node.js、npm 或启动 Astro 站点。保存文件后，可以使用任何支持 Markdown 预览的软件（例如 Obsidian，或安装 Markdown 预览插件的 VS Code）检查标题层级、列表、代码块、链接和图片是否正常。
 
-## 🧞 Commands
+如果文档使用了 MDX、Starlight 组件、站点专用样式，或者普通 Markdown 预览与最终页面表现不一致，再考虑本地启动 Astro 站点。本项目需要 Node.js 和 npm；克隆仓库后，在项目根目录执行：
 
-All commands are run from the root of the project, from a terminal:
+```bash
+npm ci
+npm run dev
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+随后打开终端提示的本地地址，通常是 `http://localhost:4321`，检查页面内容、标题、目录、链接和图片是否正常。
 
-## 👀 Want to learn more?
+只有在需要进一步确认生产构建，或修改了站点配置、组件等内容时，才建议额外运行：
 
-Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).
+```bash
+npm run build
+```
+
+`dist/`、`.astro/` 和 `node_modules/` 是生成或依赖目录，按当前 .gitignore 设置不会提交到仓库，请勿去除。
+
+如果需要了解站点结构，Starlight 会从 `src/content/docs/` 读取 `.md` 和 `.mdx` 文件；图片等资源位于 `src/assets/`，静态文件可以放在 `public/`。更多组件、frontmatter 和主题能力请参考 [Starlight 文档](https://starlight.astro.build/) 与 [Astro 文档](https://docs.astro.build/)。
+
+## 推荐的协作流程
+
+1. 从最新的 `main` 分支创建自己的分支。分支名可以使用 `docs/<主题>` 或 `fix/<主题>`，例如 `docs/server-backup`。
+2. 编写新文档，或修改需要纠正的页面及图片。
+3. 使用 Markdown 阅读器进行基本预览；如果使用 MDX、Starlight 特性或发现预览差异，再按上文按需启动本地站点。
+4. 提交变更并创建 Pull Request，在描述中说明：修改了什么、为什么修改，以及是否需要维护者特别关注版本或服务器信息。
+5. 根据审阅意见补充内容。合并前请确保新增文件、图片和链接都已包含在提交中。
+
+## 提交前检查清单
+
+- [ ] 标题、描述和正文准确反映文章内容；
+- [ ] 操作步骤、命令和版本信息已经实际核对；
+- [ ] 所有图片都能显示，替代文本和相对路径正确；
+- [ ] 站内链接、外部链接和侧边栏入口可用；
+- [ ] 是否提交密码、令牌、个人隐私或不应公开的服务器信息；
+- [ ] 已使用 Markdown 阅读器检查；如使用特殊特性，已按需进行本地站点预览；
+- [ ] Pull Request 描述清楚变更内容及其原因。
+
+感谢每一位帮助 XDUCraft 文档变得更准确、更容易阅读的贡献者。
