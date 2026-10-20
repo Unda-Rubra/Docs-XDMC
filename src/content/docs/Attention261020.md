@@ -3,8 +3,6 @@ title: 【紧急通知】关于 Minecraft 启动器下载功能调整及安全�
 description: 关于 Minecraft 启动器下载功能调整及安全风险的公告-2026.10.20
 ---
 
-# 【紧急通知】关于 Minecraft 启动器下载功能调整及安全风险的公告
-
 近期，受相关合规性因素影响，部分第三方 Minecraft 启动器（如 PCL2、HMCL）即将停止支持 Minecraft 游戏本体下载功能，可能影响新版本下载及部分整合包的安装。
 
 **请大家不必恐慌！此次调整仅涉及部分启动器的游戏下载功能，不影响已经安装完成的游戏正常运行。** 玩家仍可通过其他启动器下载游戏，并在下载完成后使用原有启动器继续游玩。
@@ -27,10 +25,7 @@ description: 关于 Minecraft 启动器下载功能调整及安全风险的公�
 
 1. 找到 PCL2 可执行文件（exe）所在目录。
 2. 打开该目录下 `PCL` 文件夹内的 `Setup.ini`。
-3. 找到 `SystemSystemUpdate` 参数，将其修改为：
-
-`SystemSystemUpdate:3`
-
+3. 找到 `SystemSystemUpdate` 参数，将其修改为：`SystemSystemUpdate:3`
 4. 如果不存在该参数，直接新增上述一行。
 5. 保存文件后即可正常启动 PCL2。
 
